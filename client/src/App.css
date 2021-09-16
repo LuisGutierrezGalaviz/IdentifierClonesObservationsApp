@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+
+.wrapper {
+  margin: 1rem;
+}
+
+.formField {
+  margin: 1rem;
+}
+
+.formFieldTitle{
+  display: inline;
+  margin-right: .5rem;
+}
