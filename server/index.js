@@ -15,20 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}))
 
-const getCloneDataQuery = `select * from identifierclones.clones_data`;
-
-/*pool.query(`select * from identifierclones.clones_data`, (err, res) =>{
-  return console.log(res);
-})*/
-
-//If repositoryName and cloneName do not exist in clones_data table, create new entry
-/*
-    const insertCloneData = `select * from identifierclones.clones_data where identifier_name='${this.state.identifierName}' AND repository_name='${this.state.repositoryName}'`;
-    db.query(insertCloneData, (err, res) =>{
-      return console.log(res);
-    })*/
-
-
 
 app.get("/", (req, res) => {
     res.send("hello world");
@@ -66,6 +52,39 @@ app.post('/api/insertNewCloneObservation', (req, res) => {
 
   const insertCloneObservationEntry = "INSERT INTO identifierclones.clones_observations (clone_id, observation, function_source, github_src_link) VALUES (?,?,?,?)";
   db.query(insertCloneObservationEntry, [cloneId, observation, functionSource, githubLinkSrcFunction], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+})
+
+app.post('/api/insertNewMemo', (req, res) => {
+  const memoDetails = req.body.memo;
+  console.log(memoDetails);
+  const insertMemoEntry = "INSERT INTO identifierclones.clones_memos (memo) VALUES (?)";
+  db.query(insertMemoEntry, [memoDetails], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+})
+
+app.post('/api/insertNewObservationToMemo', (req, res) => {
+  const memoId = req.body.memoId;
+  const observationId = req.body.observationId;
+  const insertMemoEntry = "INSERT INTO identifierclones.observations_to_memos (observation_id, memo_id) VALUES (?,?)";
+  db.query(insertMemoEntry, [observationId, memoId], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+})
+
+app.post('/api/insertNewPMemoToCMemo', (req, res) => {
+  const parentMemoId = req.body.parentMemoId;
+  const childMemoId = req.body.childMemoId;
+  const insertMemoEntry = "INSERT INTO identifierclones.parentmemo_to_childmemo (parentmemo_id, childmemo_id) VALUES (?,?)";
+  db.query(insertMemoEntry, [parentMemoId, childMemoId], (err, result) => {
     console.log(err);
     console.log(result);
     res.send(result);
