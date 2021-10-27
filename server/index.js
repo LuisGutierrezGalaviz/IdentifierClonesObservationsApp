@@ -60,9 +60,11 @@ app.post('/api/insertNewCloneObservation', (req, res) => {
 
 app.post('/api/insertNewMemo', (req, res) => {
   const memoDetails = req.body.memo;
+  const memoLevel = req.body.memoLevel;
   console.log(memoDetails);
-  const insertMemoEntry = "INSERT INTO identifierclones.clones_memos (memo) VALUES (?)";
-  db.query(insertMemoEntry, [memoDetails], (err, result) => {
+  console.log(memoLevel);
+  const insertMemoEntry = "INSERT INTO identifierclones.clones_memos (memo,memo_level) VALUES (?,?)";
+  db.query(insertMemoEntry, [memoDetails, memoLevel], (err, result) => {
     console.log(err);
     console.log(result);
     res.send(result);

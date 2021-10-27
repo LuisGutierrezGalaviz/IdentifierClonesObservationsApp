@@ -6,6 +6,7 @@ class MemoSubmission extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        memoLevel: "",
         isGroundLevelMemo: false,
         memoDetails: "",
         cloneObservationIds: "",
@@ -13,6 +14,9 @@ class MemoSubmission extends React.Component {
     };
   }
 
+  handleMemoLevelChange = (event) => {
+    this.setState({memoLevel: event.target.value})
+  }
   handleIsGroundLevelMemoChange = (event) => {
     
     this.setState({isGroundLevelMemo: event.target.checked});
@@ -30,8 +34,9 @@ class MemoSubmission extends React.Component {
   handleSubmit = async() => {
     console.log(this.state);
     let memoDetails = this.state.memoDetails;
+    let memoLevel = parseInt(this.state.memoLevel);
 
-    let newCloneMemoResponse = await Axios.post('http://localhost:3001/api/insertNewMemo', {memo: memoDetails});
+    let newCloneMemoResponse = await Axios.post('http://localhost:3001/api/insertNewMemo', {memo: memoDetails, memoLevel: memoLevel});
     console.log(newCloneMemoResponse.data);
     let cloneMemoData = newCloneMemoResponse.data;
     let memoId = cloneMemoData["insertId"];
@@ -80,6 +85,10 @@ class MemoSubmission extends React.Component {
         The second type of memo describes a set of lower level memos (parent and child memo relationship). 
         </p>
 
+        <div className="formField">
+            <div className="formFieldTitle">Memo Level (Starts with 0 for Ground Level Memos): </div>
+            <input type="text" value={this.state.memoLevel} onChange={this.handleMemoLevelChange}/>
+        </div>
         <div className="formField">
             <div className="formFieldTitle">Ground Level Memo (represents ground level observations/codings): </div>
             <input type="checkbox" onClick={this.handleIsGroundLevelMemoChange}/>
