@@ -149,6 +149,7 @@ class ObservationsForm extends React.Component {
     cloneObservationStr += (`Method calls containing the clone: ${this.state.containedInFunctionCalls}\n`);
     cloneObservationStr += (`Math Equations containing the clone: ${this.state.containedInMathEquation}\n`);
     cloneObservationStr += (`Method Name: ${this.state.methodName}\n`);
+    cloneObservationStr += (`Method Return Type: ${this.state.methodReturnType}\n`);
     cloneObservationStr += (`Method Behavior Summary: ${this.state.methodBehaviorSummary}\n\n`);
     cloneObservationStr += (`Function Source Code: \n ${this.state.functionSource}`);
 
