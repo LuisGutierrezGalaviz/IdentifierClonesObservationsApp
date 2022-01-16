@@ -182,6 +182,35 @@ class ObservationsForm extends React.Component {
     console.log(cloneObservation);
     let newCloneObservationResponse = await Axios.post('http://localhost:3001/api/insertNewCloneObservation', {cloneId: cloneId, observation: cloneObservation, functionSource: this.state.functionSource, githubLinkSrcFunction: this.state.githubLinkToSrcFunction});
     console.log(newCloneObservationResponse);
+
+    //Reset fields that constantly change upon submission of observation
+    this.setState({
+      githubLinkToSrcFunction: "",
+      dataTypeIsPrimitive: false,
+      dataType: '',
+      inlineInitialization: false,
+      cloneValueAfterFirstAssignment: '',
+      cloneValueUpdatedAfterAssignment: false,
+      isLocalVariable: false,
+      isFunctionArgument: false,
+      containedInForLoop: false,
+      containedInWhileLoop: false,
+      containedInDoWhileLoop: false,
+      containedInIfThen: false,
+      containedInIfThenElse: false,
+      containedInSwitch: false,
+      containedInTryBlock: false,
+      containedInCatchArgument: false,
+      containedInCatchBlock: false,
+      usedInReturnStatement: false,
+      containedInFunctionCalls: '',
+      containedInMathEquation: '',
+      methodName: '',
+      methodReturnType: '',
+      methodBehaviorSummary: '',
+      functionSource: ''
+    });
+    console.log(this.state);
   }
 
   render(){
@@ -200,7 +229,7 @@ class ObservationsForm extends React.Component {
         </div>
         <div className="formField">
             <div className="formFieldTitle">Github link to src function: </div>
-            <input type="text" value={this.state.githubLinkToSrcFunction} onChange={this.handleGithubLinkChange}/>
+            <input type="text" style={{width: "35rem"}} value={this.state.githubLinkToSrcFunction} onChange={this.handleGithubLinkChange}/>
         </div>
 
         {/* Declaration of variable clone */}
@@ -210,7 +239,7 @@ class ObservationsForm extends React.Component {
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone's data type is primitive: </div>
-            <input type="checkbox" onClick={this.handlePrimitiveChange}/>
+            <input type="checkbox" checked={this.state.dataTypeIsPrimitive} onClick={this.handlePrimitiveChange}/>
         </div>
         <div className="formField">
             <div className="formFieldTitle">Data type: </div>
@@ -218,71 +247,71 @@ class ObservationsForm extends React.Component {
         </div>
         <div className="formField">
             <div className="formFieldTitle">Inline initialization: </div>
-            <input type="checkbox" onClick={this.handleInlineInitializationChange} />
+            <input type="checkbox" checked={this.state.inlineInitialization} onClick={this.handleInlineInitializationChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Variable value after first assignment: </div>
-            <input type="text" value={this.state.cloneValueAfterFirstAssignment} onChange={this.handleValueAfterFirstAssignmentChange}/>
+            <input type="text" style={{width: "35rem"}} value={this.state.cloneValueAfterFirstAssignment} onChange={this.handleValueAfterFirstAssignmentChange}/>
         </div>
         <div className="formField">
             <div className="formFieldTitle">Variable updated after assignment: </div>
-            <input type="checkbox" onClick={this.handleUpdatedAfterAssignmentChange} />
+            <input type="checkbox" checked={this.state.cloneValueUpdatedAfterAssignment} onClick={this.handleUpdatedAfterAssignmentChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone is a local variable: </div>
-            <input type="checkbox" onClick={this.handleIsLocalVariableChange} />
+            <input type="checkbox" checked={this.state.isLocalVariable} onClick={this.handleIsLocalVariableChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone passed in as function argument: </div>
-            <input type="checkbox" onClick={this.handleIsFunctionArgumentChange} />
+            <input type="checkbox" checked={this.state.isFunctionArgument} onClick={this.handleIsFunctionArgumentChange} />
         </div>
         
         {/* Statements containing variable clone */}
         <div className="formField">
             <div className="formFieldTitle">Clone contained in for-loop: </div>
-            <input type="checkbox" onClick={this.handleContainedInForLoopChange} />
+            <input type="checkbox" checked={this.state.containedInForLoop} onClick={this.handleContainedInForLoopChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in while-loop: </div>
-            <input type="checkbox" onClick={this.handleContainedInWhileLoopChange} />
+            <input type="checkbox" checked={this.state.containedInWhileLoop} onClick={this.handleContainedInWhileLoopChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in do-while-loop: </div>
-            <input type="checkbox" onClick={this.handleContainedInDoWhileLoopChange} />
+            <input type="checkbox" checked={this.state.containedInDoWhileLoop} onClick={this.handleContainedInDoWhileLoopChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in if-then block: </div>
-            <input type="checkbox" onClick={this.handleContainedInIfThenChange} />
+            <input type="checkbox" checked={this.state.containedInIfThen} onClick={this.handleContainedInIfThenChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in if-then-else block: </div>
-            <input type="checkbox" onClick={this.handleContainedInIfThenElseChange} />
+            <input type="checkbox" checked={this.state.containedInIfThenElse} onClick={this.handleContainedInIfThenElseChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in switch block: </div>
-            <input type="checkbox" onClick={this.handleContainedInSwitchChange} />
+            <input type="checkbox" checked={this.state.containedInSwitch} onClick={this.handleContainedInSwitchChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in try block: </div>
-            <input type="checkbox" onClick={this.handleContainedInTryBlockChange} />
+            <input type="checkbox" checked={this.state.containedInTryBlock} onClick={this.handleContainedInTryBlockChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in catch argument: </div>
-            <input type="checkbox" onClick={this.handleContainedInCatchArgumentChange} />
+            <input type="checkbox" checked={this.state.containedInCatchArgument} onClick={this.handleContainedInCatchArgumentChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone contained in catch block: </div>
-            <input type="checkbox" onClick={this.handleContainedInCatchBlockChange} />
+            <input type="checkbox" checked={this.state.containedInCatchBlock} onClick={this.handleContainedInCatchBlockChange} />
         </div>
         <div className="formField">
             <div className="formFieldTitle">Clone used in return statement: </div>
-            <input type="checkbox" onClick={this.handleUsedInReturnChange} />
+            <input type="checkbox" checked={this.state.usedInReturnStatement} onClick={this.handleUsedInReturnChange} />
         </div>
         
         {/* Expressions containing variable clone */}
         <div className="formField">
             <div className="formFieldTitle">Input Function Calls including clone: </div>
-            <input type="text" value={this.state.containedInFunctionCalls} onChange={this.handleContainedInFunctionCallsChange}/>
+            <input type="text" style={{width: "35rem"}} value={this.state.containedInFunctionCalls} onChange={this.handleContainedInFunctionCallsChange}/>
         </div>
         <div className="formField">
             <div className="formFieldTitle">Input Math Equations including clone: </div>
@@ -300,11 +329,11 @@ class ObservationsForm extends React.Component {
         </div>
         <div className="formField">
             <div>Method Behavior Summary:</div>
-            <textarea id="methodBehaviorSummary" name="methodBehaviorSummary"  rows="6" cols="80" onChange={this.handleMethodBehaviorSummaryChange}/>
+            <textarea id="methodBehaviorSummary" value={this.state.methodBehaviorSummary} name="methodBehaviorSummary"  rows="6" cols="80" onChange={this.handleMethodBehaviorSummaryChange}/>
         </div>
         <div className="formField">
             <div>Function Source Code:</div>
-            <textarea id="functionSource" name="functionSource"  rows="6" cols="80" onChange={this.handleFunctionSourceChange}/>
+            <textarea id="functionSource" value={this.state.functionSource} name="functionSource"  rows="6" cols="80" onChange={this.handleFunctionSourceChange}/>
         </div>
 
         <button onClick={this.handleSubmit} >Submit Observations</button>
