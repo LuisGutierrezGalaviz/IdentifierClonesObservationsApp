@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class ObservationsForm extends React.Component {
   constructor(props) {
@@ -216,6 +217,8 @@ class ObservationsForm extends React.Component {
   render(){
     return (
       <div className="wrapper">
+        <Link to={"./editCodings"}>Edit Submitted Codings</Link>
+
         <h1>Identifier Clones Objective Observations Template</h1>
         <p>
           <strong>Overview:</strong> This template will be used to gather objective observations

@@ -32,6 +32,43 @@ app.post("/api/getCloneData", (req, res) => {
   });
 })
 
+app.post("/api/getCloneCodings", (req, res) => {
+  const repositoryName = req.body.repositoryName;
+  const cloneIdentifierName = req.body.cloneIdentifierName;
+
+  const getCloneId = "SELECT id FROM identifierclones.clones_data WHERE identifier_name=? AND repository_name=?";
+  const getCloneObservations = "SELECT id, observation, function_source, github_src_link FROM identifierclones.clones_observations WHERE clone_id=?";
+  db.query(getCloneId, [cloneIdentifierName, repositoryName], (err, result) => {
+    console.log(err);
+    console.log(result);
+
+    let cloneId = result[0].id;
+    console.log(cloneId);
+
+    db.query(getCloneObservations, [cloneId], (err, result) => {
+      console.log(err);
+      console.log(result);
+
+      res.send(result);
+    })
+  })
+})
+
+app.post("/api/updateCloneCoding", (req, res) => {
+  const observationId = req.body.observationId;
+  const observation = req.body.observation;
+  const function_source = req.body.function_source;
+  const github_src_link = req.body.github_src_link;
+
+  const updateCloneObservation = "UPDATE identifierclones.clones_observations SET observation=?, function_source=?, github_src_link=? WHERE id=?";
+  db.query(updateCloneObservation, [observation, function_source, github_src_link, observationId], (err, result) => {
+    console.log(err);
+    console.log(result);
+
+    res.send(result);
+  })
+})
+
 app.post('/api/insertNewCloneData', (req, res) => {
   const identifierName = req.body.identifierName;
   const repositoryName = req.body.repositoryName;
