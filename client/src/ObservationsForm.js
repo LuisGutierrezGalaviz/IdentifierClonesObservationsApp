@@ -212,6 +212,8 @@ class ObservationsForm extends React.Component {
       functionSource: ''
     });
     console.log(this.state);
+
+    alert("Coding Successfully Submitted")
   }
 
   render(){

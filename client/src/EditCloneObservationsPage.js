@@ -66,6 +66,8 @@ class EditCloneObservationsPage extends React.Component {
 
     let updateCloneObservationResponse = await Axios.post('http://localhost:3001/api/updateCloneCoding', {observationId: observationId, observation: observation, function_source: function_source, github_src_link:github_src_link});
     console.log(updateCloneObservationResponse);
+
+    alert("Clone Coding Successfully Updated");
   }
 
   render(){
